@@ -123,6 +123,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if (searchBar.text?.isEmpty == false) {
+                self.filteredItems.remove(at: indexPath.row)
+            }
+            self.items.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+    
     func configureCheckmark(for cell: ChecklistItemCell, withItem item: CheckListItem) {
         cell.checkMark.isHidden = !item.checked
     }
