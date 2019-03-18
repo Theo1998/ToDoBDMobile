@@ -9,13 +9,28 @@
 import UIKit
 
 class ViewController: UIViewController {
-
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var items = [CheckListItem]()
     var filteredItems = [CheckListItem]()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        searchBar.text = ""
+        if (segue.identifier == "addItem") {
+            let controller = (segue.destination as! UINavigationController).topViewController as! ItemDetailViewController
+            controller.delegate = self
+        }
+        if (segue.identifier == "editItem") {
+            if let cell = sender as? UITableViewCell,
+                let indexPath = tableView.indexPath(for: cell){
+                let controller = (segue.destination as! UINavigationController).topViewController as! ItemDetailViewController
+                controller.itemToEdit = items[indexPath.row]
+                controller.delegate = self
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,31 +41,6 @@ class ViewController: UIViewController {
         tableView.reloadData()
     }
     
-    @IBAction func addItem(_ sender: Any) {
-        
-        searchBar.text = ""
-        tableView.reloadData()
-        
-        let alertController = UIAlertController(title: "Doing", message: "New Item ?", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
-            (action) in
-            self.items.append(CheckListItem(text: (alertController.textFields![0] as UITextField).text!))
-            self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .none)
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alertController.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Item name"
-        })
-        
-        alertController.addAction(okAction)
-        
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
     
     func setupConstraints() {
         
@@ -105,19 +95,20 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         present(alertController, animated: true, completion: nil)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ aTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath) as! ChecklistItemCell
-        
-        
+        let cell = aTableView.dequeueReusableCell(withIdentifier: "CellIdentifier")! as! ChecklistItemCell
+                
         if (searchBar.text?.isEmpty == false) {
             configureText(for: cell, withItem: self.filteredItems[indexPath.row])
             configureCheckmark(for: cell, withItem: self.filteredItems[indexPath.row])
+            configureImage(for: cell, withItem: self.filteredItems[indexPath.row])
             return cell
         }
         else {
             configureText(for: cell, withItem: self.items[indexPath.row])
             configureCheckmark(for: cell, withItem: self.items[indexPath.row])
+            configureImage(for: cell, withItem: self.items[indexPath.row])
             return cell
         }
         
@@ -140,6 +131,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func configureText(for cell: ChecklistItemCell, withItem item: CheckListItem) {
         cell.textCell.text = item.text
     }
+    
+    func configureImage(for cell: ChecklistItemCell, withItem item: CheckListItem) {
+        cell.newImage?.image = item.image
+    }
 }
 
 extension ViewController: UISearchBarDelegate {
@@ -147,4 +142,24 @@ extension ViewController: UISearchBarDelegate {
         filteredItems = items.filter { return $0.text.lowercased().contains(searchBar.text!.lowercased()) }
         tableView.reloadData()
     }
+}
+
+extension ViewController: ItemDetailViewControllerDelegate {
+    
+    func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: CheckListItem) {
+        self.items.append(item)
+        tableView.reloadData()
+//        self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .none)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: CheckListItem) {
+        self.tableView.reloadRows(at: [IndexPath(row: self.items.index(where: { $0 === item })!, section: 0)], with: .none)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

@@ -6,15 +6,17 @@
 //  Copyright © 2019 lpiem. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class CheckListItem {
     var text: String;
     var checked: Bool;
+    var image: UIImage;
     
-    init(text: String, checked: Bool = false) {
+    init(text: String, image: UIImage, checked: Bool = false) {
         self.text = text;
         self.checked = checked;
+        self.image = image;
     }
     
     func toggleChecked() {

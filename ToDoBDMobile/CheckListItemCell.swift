@@ -12,6 +12,7 @@ class ChecklistItemCell: UITableViewCell {
     
     @IBOutlet weak var checkMark: UILabel!
     @IBOutlet weak var textCell: UILabel!
+    @IBOutlet weak var newImage: UIImageView!
     
     
     override func awakeFromNib() {

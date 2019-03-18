@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08464145223FCF9C00A735D8 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08464144223FCF9C00A735D8 /* ItemDetailViewController.swift */; };
 		08C92CEC221FEEAA00C820E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C92CEB221FEEAA00C820E0 /* AppDelegate.swift */; };
 		08C92CEE221FEEAA00C820E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C92CED221FEEAA00C820E0 /* ViewController.swift */; };
 		08C92CF1221FEEAA00C820E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C92CEF221FEEAA00C820E0 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08464144223FCF9C00A735D8 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		08C92CE8221FEEAA00C820E0 /* ToDoBDMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoBDMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C92CEB221FEEAA00C820E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C92CED221FEEAA00C820E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				08C92CF7221FEEAC00C820E0 /* Info.plist */,
 				08C92CFD2220256100C820E0 /* CheckListItem.swift */,
 				08C92CFF22202B4600C820E0 /* CheckListItemCell.swift */,
+				08464144223FCF9C00A735D8 /* ItemDetailViewController.swift */,
 			);
 			path = ToDoBDMobile;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08464145223FCF9C00A735D8 /* ItemDetailViewController.swift in Sources */,
 				08C92CEE221FEEAA00C820E0 /* ViewController.swift in Sources */,
 				08C92CFE2220256100C820E0 /* CheckListItem.swift in Sources */,
 				08C92CEC221FEEAA00C820E0 /* AppDelegate.swift in Sources */,
