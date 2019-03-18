@@ -7,14 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var items = [CheckListItem]()
-    var filteredItems = [CheckListItem]()
+    var filteredItems = [Tache]()
+    var dataManager = CoreDataManager.shared
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         searchBar.text = ""
@@ -34,13 +36,45 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         setupConstraints()
-        
-        // Reload the table
         tableView.reloadData()
     }
     
+    override func awakeFromNib() {
+        dataManager.loadItems()
+    }
+    
+    @IBAction func addItem(_ sender: Any) {
+        
+        searchBar.text = ""
+        tableView.reloadData()
+        
+        let alertController = UIAlertController(title: "Doing", message: "New Item ?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
+            (action) in
+            
+            let tache = Tache(context: self.dataManager.context)
+            tache.nom = (alertController.textFields![0] as UITextField).text!
+            print("view controller - tache : \(tache)")
+            //self.dataManager.items.append(tache)
+            //self.dataManager.saveData()
+            self.dataManager.addItem(tache)
+            let indexPath = [IndexPath(row: self.dataManager.items.count - 1, section: 0)]
+            self.tableView.insertRows(at: indexPath, with: .none)
+            self.tableView.reloadRows(at: indexPath, with: UITableView.RowAnimation.fade)
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addTextField(configurationHandler: { (textField) in
+            textField.placeholder = "Item name"
+        })
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
     
     func setupConstraints() {
         
@@ -53,6 +87,28 @@ class ViewController: UIViewController {
 
 }
 
+
+// MARK: - Data Manager Delegate
+extension ViewController: DataManagerDelegate {
+    func didAddItem(_ item: Tache) {
+        print("didAddItem controller")
+//        let indexPath = [IndexPath(row: self.dataManager.items.count - 1, section: 0)]
+//       self.tableView.insertRows(at: indexPath, with: .none)
+//        self.tableView.reloadRows(at: indexPath, with: UITableView.RowAnimation.fade)
+    }
+    
+    func didUpdateItem(_ item: Tache) {
+    }
+    
+    func didDidLoadItem(_ item: Tache) {
+    }
+    
+    func didDeleteItem(_ item: Tache) {
+    }
+}
+
+
+// MARK: - UITableViewDataSource
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,13 +119,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if  (searchBar.text?.isEmpty == false) {
             return filteredItems.count
         } else {
-            return items.count
+            return dataManager.items.count
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.items[indexPath.row].toggleChecked();
+        self.dataManager.items[indexPath.row].toggleChecked();
+        self.dataManager.saveData()
         tableView.reloadRows(at: [indexPath], with: .none)
     }
     
@@ -78,18 +135,18 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
             (action) in
-            self.items[indexPath.row].text = (alertController.textFields![0] as UITextField).text!
+             self.dataManager.items[indexPath.row].nom = (alertController.textFields![0] as UITextField).text!
+            self.dataManager.saveData()
             tableView.reloadRows(at: [indexPath], with: .none)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         alertController.addTextField(configurationHandler: { (textField) in
-            textField.text = self.items[indexPath.row].text
+            textField.text = self.dataManager.items[indexPath.row].nom
         })
         
         alertController.addAction(okAction)
-        
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)
@@ -106,9 +163,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         else {
-            configureText(for: cell, withItem: self.items[indexPath.row])
-            configureCheckmark(for: cell, withItem: self.items[indexPath.row])
-            configureImage(for: cell, withItem: self.items[indexPath.row])
+            configureText(for: cell, withItem: self.dataManager.items[indexPath.row])
+            configureCheckmark(for: cell, withItem: self.dataManager.items[indexPath.row])
+            configureImage(for: cell, withItem: self.dataManager.items[indexPath.row])
             return cell
         }
         
@@ -119,17 +176,21 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             if (searchBar.text?.isEmpty == false) {
                 self.filteredItems.remove(at: indexPath.row)
             }
-            self.items.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            self.dataManager.removeItem(self.dataManager.items[indexPath.row])
+            self.dataManager.items.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.dataManager.saveData()
+           
         }
     }
     
-    func configureCheckmark(for cell: ChecklistItemCell, withItem item: CheckListItem) {
+    func configureCheckmark(for cell: ChecklistItemCell, withItem item: Tache) {
         cell.checkMark.isHidden = !item.checked
     }
     
-    func configureText(for cell: ChecklistItemCell, withItem item: CheckListItem) {
-        cell.textCell.text = item.text
+    func configureText(for cell: ChecklistItemCell, withItem item: Tache) {
+        cell.textCell.text = item.nom
     }
     
     func configureImage(for cell: ChecklistItemCell, withItem item: CheckListItem) {
@@ -137,9 +198,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - UISearchBar
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredItems = items.filter { return $0.text.lowercased().contains(searchBar.text!.lowercased()) }
+        filteredItems = self.dataManager.items.filter { return $0.nom!.lowercased().contains(searchBar.text!.lowercased()) }
         tableView.reloadData()
     }
 }
