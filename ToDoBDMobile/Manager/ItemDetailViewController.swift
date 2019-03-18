@@ -10,7 +10,9 @@ import UIKit
 
 class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     var delegate: ItemDetailViewControllerDelegate?
-    var itemToEdit: CheckListItem?
+    var itemToEdit: Tache?
+    var dataManager = CoreDataManager.shared
+    
     @IBOutlet weak var bDone: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textField: UITextField!
@@ -31,23 +33,31 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     @IBAction func done(_ sender: Any) {
         if itemToEdit != nil {
-            itemToEdit?.text = textField.text!
-            itemToEdit?.image = imageView.image!
+            itemToEdit?.nom = textField.text!
+            itemToEdit?.image?.image = imageView.image?.pngData()
             delegate?.itemDetailViewController(self, didFinishEditingItem: itemToEdit!)
             
         }
         else {
+            let tache = Tache(context: self.dataManager.context)
+            tache.nom = textField.text
             
-            delegate?.itemDetailViewController(self, didFinishAddingItem: CheckListItem(text: textField.text ?? "", image: imageView.image!))
+            let image = Image(context: self.dataManager.context)
+            image.image = imageView.image?.pngData()
+            tache.image = image
+            //self.dataManager.items.append(tache)
+            //self.dataManager.saveData()
+            self.dataManager.addItem(tache)
+            delegate?.itemDetailViewController(self, didFinishAddingItem: tache)
         }
-    }
+    } 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if itemToEdit != nil {
             self.navigationItem.title = "Edit Item"
-            textField.text = itemToEdit?.text
-            imageView.image = itemToEdit?.image
+            textField.text = itemToEdit?.nom
+            imageView.image = UIImage(data: (itemToEdit?.image?.image)!)
         }
     }
     
@@ -70,8 +80,8 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 
 protocol ItemDetailViewControllerDelegate : class {
     func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
-    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: CheckListItem)
-    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: CheckListItem)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: Tache)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: Tache)
 }
 
 extension ItemDetailViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

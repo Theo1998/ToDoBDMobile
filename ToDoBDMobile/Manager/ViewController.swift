@@ -28,7 +28,7 @@ class ViewController: UIViewController {
             if let cell = sender as? UITableViewCell,
                 let indexPath = tableView.indexPath(for: cell){
                 let controller = (segue.destination as! UINavigationController).topViewController as! ItemDetailViewController
-                controller.itemToEdit = items[indexPath.row]
+                controller.itemToEdit = self.dataManager.items[indexPath.row]
                 controller.delegate = self
             }
         }
@@ -44,37 +44,6 @@ class ViewController: UIViewController {
         dataManager.loadItems()
     }
     
-    @IBAction func addItem(_ sender: Any) {
-        
-        searchBar.text = ""
-        tableView.reloadData()
-        
-        let alertController = UIAlertController(title: "Doing", message: "New Item ?", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
-            (action) in
-            
-            let tache = Tache(context: self.dataManager.context)
-            tache.nom = (alertController.textFields![0] as UITextField).text!
-            print("view controller - tache : \(tache)")
-            //self.dataManager.items.append(tache)
-            //self.dataManager.saveData()
-            self.dataManager.addItem(tache)
-            let indexPath = [IndexPath(row: self.dataManager.items.count - 1, section: 0)]
-            self.tableView.insertRows(at: indexPath, with: .none)
-            self.tableView.reloadRows(at: indexPath, with: UITableView.RowAnimation.fade)
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alertController.addTextField(configurationHandler: { (textField) in
-            textField.placeholder = "Item name"
-        })
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
-    }
     
     func setupConstraints() {
         
@@ -159,13 +128,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if (searchBar.text?.isEmpty == false) {
             configureText(for: cell, withItem: self.filteredItems[indexPath.row])
             configureCheckmark(for: cell, withItem: self.filteredItems[indexPath.row])
-            configureImage(for: cell, withItem: self.filteredItems[indexPath.row])
+            if (cell.newImage?.image) != nil {
+                configureImage(for: cell, withItem: self.filteredItems[indexPath.row])
+            }
             return cell
         }
         else {
             configureText(for: cell, withItem: self.dataManager.items[indexPath.row])
             configureCheckmark(for: cell, withItem: self.dataManager.items[indexPath.row])
-            configureImage(for: cell, withItem: self.dataManager.items[indexPath.row])
+            if (cell.newImage?.image) != nil {
+                configureImage(for: cell, withItem: self.dataManager.items[indexPath.row])
+            }
             return cell
         }
         
@@ -193,8 +166,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textCell.text = item.nom
     }
     
-    func configureImage(for cell: ChecklistItemCell, withItem item: CheckListItem) {
-        cell.newImage?.image = item.image
+    func configureImage(for cell: ChecklistItemCell, withItem item: Tache) {
+        cell.newImage?.image = UIImage(data: (item.image?.image)!)
     }
 }
 
@@ -212,15 +185,14 @@ extension ViewController: ItemDetailViewControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: CheckListItem) {
-        self.items.append(item)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAddingItem item: Tache) {
         tableView.reloadData()
 //        self.tableView.insertRows(at: [IndexPath(row: self.items.count - 1, section: 0)], with: .none)
         self.dismiss(animated: true, completion: nil)
     }
     
-    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: CheckListItem) {
-        self.tableView.reloadRows(at: [IndexPath(row: self.items.index(where: { $0 === item })!, section: 0)], with: .none)
+    func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: Tache) {
+        self.tableView.reloadRows(at: [IndexPath(row: self.dataManager.items.index(where: { $0 === item })!, section: 0)], with: .none)
         self.dismiss(animated: true, completion: nil)
     }
     
