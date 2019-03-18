@@ -9,7 +9,7 @@
 import Foundation
 
 extension Tache {
-    //    func toggleChecked() {
-    //        self.checked = !self.checked;
-    //    }
+        func toggleChecked() {
+           self.checked = !self.checked;
+        }
 }

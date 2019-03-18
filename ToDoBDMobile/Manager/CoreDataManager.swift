@@ -56,19 +56,10 @@ class CoreDataManager {
     //
 }
 
-
-protocol DataManagerDelegate : class {
-    func didAddItem(_ item: Tache)
-    func didUpdateItem(_ item: Tache)
-    func didDeleteItem(_ item: Tache)
-    func didDidLoadItem(_ item: Tache)
-}
-
-
 extension CoreDataManager {
     
     func addItem(_ item: Tache) {
-        print("data manager - tache : \(item)")
+        print("data manager - addItem - tache : \(item)")
         
         do {
             try context.save()
@@ -80,11 +71,10 @@ extension CoreDataManager {
         delegate?.didAddItem(item)
         print("data manager - taches list : \(self.items)")
         self.saveData()
-    }
+    }    
     
     func removeItem(_ item: Tache) {
-        context.delete(item)
-        self.saveData()
+        context.delete(item)        
     }
     
     func loadItems(){
@@ -103,4 +93,11 @@ extension CoreDataManager {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
+}
+
+protocol DataManagerDelegate : class {
+    func didAddItem(_ item: Tache)
+    func didUpdateItem(_ item: Tache)
+    func didDeleteItem(_ item: Tache)
+    func didDidLoadItem(_ item: Tache)
 }
