@@ -14,6 +14,7 @@ class CoreDataManager {
     static let shared = CoreDataManager()
     var delegate: DataManagerDelegate?
     var items: [Tache] = []
+    var lists: [Category] = []
     
     // MARK: - Initialisation
     private init(){
@@ -58,7 +59,7 @@ class CoreDataManager {
 
 extension CoreDataManager {
     
-    func addItem(_ item: Tache) {
+    func addItem(_ item: Tache, category: Category) {
         print("data manager - addItem - tache : \(item)")
         
         do {
@@ -67,20 +68,52 @@ extension CoreDataManager {
             print("Could not save. \(error), \(error.userInfo)")
         }
         
-        self.items.append(item)
+        category.addToTaches(item)
         delegate?.didAddItem(item)
         print("data manager - taches list : \(self.items)")
         self.saveData()
-    }    
+    }
     
     func removeItem(_ item: Tache) {
-        context.delete(item)        
+        context.delete(item)
+    }
+    
+    func sortCategory() {
+        self.lists = self.lists.sorted(by: {$0.nom!.lowercased() < $1.nom!.lowercased()})
     }
     
     func loadItems(){
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Tache")
         do {
             items = try context.fetch(fetchRequest) as! [Tache]
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func addList(_ list: Category) {
+        print("data manager - addList - category : \(list)")
+        
+        do {
+            try context.save()
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        
+        self.lists.append(list)
+        delegate?.didAddList(list)
+        print("data manager - category list : \(self.lists)")
+        self.saveData()
+    }
+    
+    func removeList(_ list: Category) {
+        context.delete(list)
+    }
+    
+    func loadLists(){
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Category")
+        do {
+            lists = try context.fetch(fetchRequest) as! [Category]
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -100,4 +133,8 @@ protocol DataManagerDelegate : class {
     func didUpdateItem(_ item: Tache)
     func didDeleteItem(_ item: Tache)
     func didDidLoadItem(_ item: Tache)
+    func didAddList(_ list: Category)
+    func didUpdateList(_ list: Category)
+    func didDeleteList(_ list: Category)
+    func didDidLoadList(_ list: Category)
 }

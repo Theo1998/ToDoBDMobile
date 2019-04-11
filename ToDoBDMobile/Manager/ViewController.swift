@@ -16,19 +16,28 @@ class ViewController: UIViewController {
     
     var filteredItems = [Tache]()
     var dataManager = CoreDataManager.shared
+    var categoryIndex : Int?
+    var category : Category?
     
+    //let ref = Database.database().reference(withPath: "Todo")
+
+    
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         searchBar.text = ""
         if (segue.identifier == "addItem") {
             let controller = (segue.destination as! UINavigationController).topViewController as! ItemDetailViewController
             controller.delegate = self
+            controller.category = self.category
         }
         if (segue.identifier == "editItem") {
             if let cell = sender as? UITableViewCell,
                 let indexPath = tableView.indexPath(for: cell){
                 let controller = (segue.destination as! UINavigationController).topViewController as! ItemDetailViewController
-                controller.itemToEdit = self.dataManager.items[indexPath.row]
+                controller.itemToEdit = self.dataManager.lists[categoryIndex!].taches?.array[indexPath.row] as? Tache
                 controller.delegate = self
             }
         }
@@ -36,6 +45,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "List"
         setupConstraints()
         tableView.reloadData()
     }
@@ -59,6 +69,22 @@ class ViewController: UIViewController {
 
 // MARK: - Data Manager Delegate
 extension ViewController: DataManagerDelegate {
+    func didAddList(_ list: Category) {
+        
+    }
+    
+    func didUpdateList(_ list: Category) {
+        
+    }
+    
+    func didDeleteList(_ list: Category) {
+        
+    }
+    
+    func didDidLoadList(_ list: Category) {
+        
+    }
+    
     func didAddItem(_ item: Tache) {
         print("didAddItem controller")
 //        let indexPath = [IndexPath(row: self.dataManager.items.count - 1, section: 0)]
@@ -88,13 +114,13 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if  (searchBar.text?.isEmpty == false) {
             return filteredItems.count
         } else {
-            return dataManager.items.count
+            return (self.dataManager.lists[categoryIndex!].taches?.array.count)!
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.dataManager.items[indexPath.row].toggleChecked();
+        (self.dataManager.lists[categoryIndex!].taches?.array[indexPath.row] as? Tache)!.toggleChecked();
         self.dataManager.saveData()
         tableView.reloadRows(at: [indexPath], with: .none)
     }
@@ -104,7 +130,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: {
             (action) in
-             self.dataManager.items[indexPath.row].nom = (alertController.textFields![0] as UITextField).text!
+            (self.dataManager.lists[self.categoryIndex!].taches?.array[indexPath.row] as? Tache)!.nom = (alertController.textFields![0] as UITextField).text!
             self.dataManager.saveData()
             tableView.reloadRows(at: [indexPath], with: .none)
         })
@@ -112,7 +138,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         alertController.addTextField(configurationHandler: { (textField) in
-            textField.text = self.dataManager.items[indexPath.row].nom
+            textField.text = (self.dataManager.lists[self.categoryIndex!].taches?.array[indexPath.row] as? Tache)!.nom
         })
         
         alertController.addAction(okAction)
@@ -128,16 +154,17 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         if (searchBar.text?.isEmpty == false) {
             configureText(for: cell, withItem: self.filteredItems[indexPath.row])
             configureCheckmark(for: cell, withItem: self.filteredItems[indexPath.row])
-            if (cell.newImage?.image) != nil {
+            if (cell.newImage) != nil {
                 configureImage(for: cell, withItem: self.filteredItems[indexPath.row])
             }
             return cell
         }
         else {
-            configureText(for: cell, withItem: self.dataManager.items[indexPath.row])
-            configureCheckmark(for: cell, withItem: self.dataManager.items[indexPath.row])
-            if (cell.newImage?.image) != nil {
-                configureImage(for: cell, withItem: self.dataManager.items[indexPath.row])
+            
+            configureText(for: cell, withItem: (self.dataManager.lists[categoryIndex!].taches?.array[indexPath.row] as? Tache)!)
+            configureCheckmark(for: cell, withItem: (self.dataManager.lists[categoryIndex!].taches?.array[indexPath.row] as? Tache)!)
+            if (cell.newImage) != nil {
+                configureImage(for: cell, withItem: (self.dataManager.lists[categoryIndex!].taches?.array[indexPath.row] as? Tache)!)
             }
             return cell
         }
@@ -151,7 +178,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             self.dataManager.removeItem(self.dataManager.items[indexPath.row])
-            self.dataManager.items.remove(at: indexPath.row)
+            self.dataManager.context.delete(self.dataManager.lists[self.categoryIndex!].taches!.array[indexPath.row] as! NSManagedObject)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             self.dataManager.saveData()
            
@@ -167,7 +194,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func configureImage(for cell: ChecklistItemCell, withItem item: Tache) {
-        cell.newImage?.image = UIImage(data: (item.image?.image)!)
+        if item.image?.image != nil {
+            cell.newImage?.image = UIImage(data: (item.image?.image)!)
+        }
     }
 }
 
@@ -192,7 +221,7 @@ extension ViewController: ItemDetailViewControllerDelegate {
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditingItem item: Tache) {
-        self.tableView.reloadRows(at: [IndexPath(row: self.dataManager.items.index(where: { $0 === item })!, section: 0)], with: .none)
+        self.tableView.reloadRows(at: [IndexPath(row: (self.dataManager.lists[self.categoryIndex!].taches?.array as! [Tache]).index(where: { $0 === item })!, section: 0)], with: .none)
         self.dismiss(animated: true, completion: nil)
     }
     

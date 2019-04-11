@@ -12,6 +12,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     var delegate: ItemDetailViewControllerDelegate?
     var itemToEdit: Tache?
     var dataManager = CoreDataManager.shared
+    var category : Category?
     
     @IBOutlet weak var bDone: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
@@ -47,7 +48,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
             tache.image = image
             //self.dataManager.items.append(tache)
             //self.dataManager.saveData()
-            self.dataManager.addItem(tache)
+            self.dataManager.addItem(tache, category: self.category!)
             delegate?.itemDetailViewController(self, didFinishAddingItem: tache)
         }
     } 
@@ -57,7 +58,9 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
         if itemToEdit != nil {
             self.navigationItem.title = "Edit Item"
             textField.text = itemToEdit?.nom
-            imageView.image = UIImage(data: (itemToEdit?.image?.image)!)
+            if itemToEdit?.image?.image != nil {
+                imageView.image = UIImage(data: (itemToEdit?.image?.image)!)
+            }
         }
     }
     

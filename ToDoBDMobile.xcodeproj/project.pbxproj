@@ -11,12 +11,17 @@
 		0824E3A7223F8998008AE895 /* Todo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0824E3A5223F8998008AE895 /* Todo.xcdatamodeld */; };
 		0824E3CA223F939A008AE895 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0824E3C9223F939A008AE895 /* CoreDataManager.swift */; };
 		0824E3D0223FC92D008AE895 /* Tache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0824E3CF223FC92D008AE895 /* Tache.swift */; };
+		0839917A2251F48A00A70CCA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 083991792251F48A00A70CCA /* GoogleService-Info.plist */; };
 		08464145223FCF9C00A735D8 /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08464144223FCF9C00A735D8 /* ItemDetailViewController.swift */; };
+		0876ACD8225F255400A35642 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876ACD7225F255400A35642 /* CategoryViewController.swift */; };
+		0876ACDA225F268100A35642 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876ACD9225F268100A35642 /* CategoryDetailViewController.swift */; };
+		0876ACDE225F2C1F00A35642 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0876ACDD225F2C1F00A35642 /* Category.swift */; };
 		08C92CEC221FEEAA00C820E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C92CEB221FEEAA00C820E0 /* AppDelegate.swift */; };
 		08C92CEE221FEEAA00C820E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C92CED221FEEAA00C820E0 /* ViewController.swift */; };
 		08C92CF1221FEEAA00C820E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C92CEF221FEEAA00C820E0 /* Main.storyboard */; };
 		08C92CF3221FEEAC00C820E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08C92CF2221FEEAC00C820E0 /* Assets.xcassets */; };
 		08C92CF6221FEEAC00C820E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C92CF4221FEEAC00C820E0 /* LaunchScreen.storyboard */; };
+		7122F996DCF6F978724C974A /* Pods_ToDoBDMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A30E700C9C22FB0170EA03A /* Pods_ToDoBDMobile.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +29,11 @@
 		0824E3A6223F8998008AE895 /* Todo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Todo.xcdatamodel; sourceTree = "<group>"; };
 		0824E3C9223F939A008AE895 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		0824E3CF223FC92D008AE895 /* Tache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tache.swift; sourceTree = "<group>"; };
+		083991792251F48A00A70CCA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		08464144223FCF9C00A735D8 /* ItemDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
+		0876ACD7225F255400A35642 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		0876ACD9225F268100A35642 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
+		0876ACDD225F2C1F00A35642 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		08C92CE8221FEEAA00C820E0 /* ToDoBDMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoBDMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C92CEB221FEEAA00C820E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C92CED221FEEAA00C820E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +41,9 @@
 		08C92CF2221FEEAC00C820E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08C92CF5221FEEAC00C820E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08C92CF7221FEEAC00C820E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A30E700C9C22FB0170EA03A /* Pods_ToDoBDMobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ToDoBDMobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE71FA176DDC749B5C3C074D /* Pods-ToDoBDMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoBDMobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoBDMobile/Pods-ToDoBDMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		DEA68C9D9609AAB2FF984DD4 /* Pods-ToDoBDMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ToDoBDMobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-ToDoBDMobile/Pods-ToDoBDMobile.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7122F996DCF6F978724C974A /* Pods_ToDoBDMobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +63,7 @@
 			children = (
 				08049100223FF93A008322DA /* ChecklistItemCell.swift */,
 				0824E3CF223FC92D008AE895 /* Tache.swift */,
+				0876ACDD225F2C1F00A35642 /* Category.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -72,6 +86,8 @@
 				08464144223FCF9C00A735D8 /* ItemDetailViewController.swift */,
 				0824E3A5223F8998008AE895 /* Todo.xcdatamodeld */,
 				08C92CEB221FEEAA00C820E0 /* AppDelegate.swift */,
+				0876ACD7225F255400A35642 /* CategoryViewController.swift */,
+				0876ACD9225F268100A35642 /* CategoryDetailViewController.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -81,6 +97,8 @@
 			children = (
 				08C92CEA221FEEAA00C820E0 /* ToDoBDMobile */,
 				08C92CE9221FEEAA00C820E0 /* Products */,
+				621EA5CFABB06B369F5E8BAE /* Pods */,
+				898B7D1462D9DD54FA42E847 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,12 +113,30 @@
 		08C92CEA221FEEAA00C820E0 /* ToDoBDMobile */ = {
 			isa = PBXGroup;
 			children = (
+				083991792251F48A00A70CCA /* GoogleService-Info.plist */,
 				0824E3CE223F950C008AE895 /* Manager */,
 				0824E3CD223F9506008AE895 /* View */,
 				0824E3CB223F94DF008AE895 /* Model */,
 				08C92CF7221FEEAC00C820E0 /* Info.plist */,
 			);
 			path = ToDoBDMobile;
+			sourceTree = "<group>";
+		};
+		621EA5CFABB06B369F5E8BAE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BE71FA176DDC749B5C3C074D /* Pods-ToDoBDMobile.debug.xcconfig */,
+				DEA68C9D9609AAB2FF984DD4 /* Pods-ToDoBDMobile.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		898B7D1462D9DD54FA42E847 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A30E700C9C22FB0170EA03A /* Pods_ToDoBDMobile.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -110,9 +146,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 08C92CFA221FEEAC00C820E0 /* Build configuration list for PBXNativeTarget "ToDoBDMobile" */;
 			buildPhases = (
+				69DBA59107139E728ABC5616 /* [CP] Check Pods Manifest.lock */,
 				08C92CE4221FEEAA00C820E0 /* Sources */,
 				08C92CE5221FEEAA00C820E0 /* Frameworks */,
 				08C92CE6221FEEAA00C820E0 /* Resources */,
+				9C33A139372E5A896FD3ADDE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -162,6 +200,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08C92CF6221FEEAC00C820E0 /* LaunchScreen.storyboard in Resources */,
+				0839917A2251F48A00A70CCA /* GoogleService-Info.plist in Resources */,
 				08C92CF3221FEEAC00C820E0 /* Assets.xcassets in Resources */,
 				08C92CF1221FEEAA00C820E0 /* Main.storyboard in Resources */,
 			);
@@ -169,15 +208,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		69DBA59107139E728ABC5616 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ToDoBDMobile-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C33A139372E5A896FD3ADDE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ToDoBDMobile/Pods-ToDoBDMobile-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ToDoBDMobile/Pods-ToDoBDMobile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		08C92CE4221FEEAA00C820E0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				08464145223FCF9C00A735D8 /* ItemDetailViewController.swift in Sources */,
+				0876ACDE225F2C1F00A35642 /* Category.swift in Sources */,
 				08049101223FF93A008322DA /* ChecklistItemCell.swift in Sources */,
 				0824E3CA223F939A008AE895 /* CoreDataManager.swift in Sources */,
+				0876ACDA225F268100A35642 /* CategoryDetailViewController.swift in Sources */,
 				0824E3D0223FC92D008AE895 /* Tache.swift in Sources */,
+				0876ACD8225F255400A35642 /* CategoryViewController.swift in Sources */,
 				08C92CEE221FEEAA00C820E0 /* ViewController.swift in Sources */,
 				0824E3A7223F8998008AE895 /* Todo.xcdatamodeld in Sources */,
 				08C92CEC221FEEAA00C820E0 /* AppDelegate.swift in Sources */,
@@ -324,6 +407,7 @@
 		};
 		08C92CFB221FEEAC00C820E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BE71FA176DDC749B5C3C074D /* Pods-ToDoBDMobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -342,6 +426,7 @@
 		};
 		08C92CFC221FEEAC00C820E0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEA68C9D9609AAB2FF984DD4 /* Pods-ToDoBDMobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

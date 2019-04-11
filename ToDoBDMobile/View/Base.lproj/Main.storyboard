@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rCc-uh-u6t">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -25,6 +25,11 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="List" id="Ea4-KZ-fzt">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="hUK-DX-pc7">
+                                            <connections>
+                                                <action selector="cancel:" destination="BYZ-38-t0r" id="Iif-Bk-1kM"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="973-bo-CM2">
                                             <connections>
                                                 <segue destination="UXs-CU-YdZ" kind="presentation" identifier="addItem" id="s4g-8R-jj5"/>
@@ -129,7 +134,7 @@
             </objects>
             <point key="canvasLocation" x="36" y="27"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Add Task-->
         <scene sceneID="al6-5h-cyH">
             <objects>
                 <tableViewController id="Jxi-ZE-xW0" customClass="ItemDetailViewController" customModule="ToDoBDMobile" customModuleProvider="target" sceneMemberID="viewController">
@@ -175,7 +180,7 @@
                                                     <rect key="frame" x="67" y="56" width="241" height="129.5"/>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f59-73-cWo">
-                                                    <rect key="frame" x="32" y="201" width="311" height="30"/>
+                                                    <rect key="frame" x="138" y="201" width="99" height="30"/>
                                                     <state key="normal" title="Choose Image"/>
                                                     <connections>
                                                         <action selector="chooseImage:" destination="Jxi-ZE-xW0" eventType="touchUpInside" id="zbk-Sr-Dr7"/>
@@ -184,8 +189,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="gaZ-Lg-oZG" firstAttribute="top" secondItem="yf6-sB-TtY" secondAttribute="topMargin" constant="45" id="64u-zP-XeA"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="f59-73-cWo" secondAttribute="trailing" constant="16" id="7hv-Aa-ztZ"/>
-                                                <constraint firstItem="f59-73-cWo" firstAttribute="leading" secondItem="yf6-sB-TtY" secondAttribute="leadingMargin" constant="16" id="8Ee-bf-joq"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="f59-73-cWo" secondAttribute="trailing" id="7hv-Aa-ztZ"/>
+                                                <constraint firstItem="f59-73-cWo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yf6-sB-TtY" secondAttribute="leadingMargin" id="8Ee-bf-joq"/>
                                                 <constraint firstItem="f59-73-cWo" firstAttribute="bottom" secondItem="yf6-sB-TtY" secondAttribute="bottomMargin" id="CUk-TX-Uel"/>
                                                 <constraint firstItem="gaZ-Lg-oZG" firstAttribute="centerY" secondItem="yf6-sB-TtY" secondAttribute="centerY" id="LpW-Cu-KUA"/>
                                                 <constraint firstItem="gaZ-Lg-oZG" firstAttribute="leading" secondItem="yf6-sB-TtY" secondAttribute="leadingMargin" constant="51" id="WxY-P1-DG4"/>
@@ -202,7 +207,7 @@
                             <outlet property="delegate" destination="Jxi-ZE-xW0" id="wNr-wO-BfE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="mjo-wS-LUU">
+                    <navigationItem key="navigationItem" title="Add Task" id="mjo-wS-LUU">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="aRO-53-4Vb">
                             <connections>
                                 <action selector="cancel:" destination="Jxi-ZE-xW0" id="Ae2-e2-8o7"/>
@@ -240,8 +245,151 @@
             </objects>
             <point key="canvasLocation" x="855" y="27"/>
         </scene>
+        <!--Dossiers-->
+        <scene sceneID="Dug-RQ-Vxs">
+            <objects>
+                <tableViewController id="99z-PO-JcS" customClass="CategoryViewController" customModule="ToDoBDMobile" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MXA-GY-BMR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="CategoryItem" textLabel="hr6-AX-X9g" style="IBUITableViewCellStyleDefault" id="wEa-RB-oSF">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wEa-RB-oSF" id="jVT-Ye-xG6">
+                                    <rect key="frame" x="0.0" y="0.0" width="307" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Dossier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hr6-AX-X9g">
+                                            <rect key="frame" x="16" y="0.0" width="291" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="showCategory" id="Phz-n8-xoY"/>
+                                    <segue destination="elb-Ec-Wff" kind="presentation" identifier="editCategory" trigger="accessoryAction" id="Kj9-el-mCB"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="99z-PO-JcS" id="ray-RU-u12"/>
+                            <outlet property="delegate" destination="99z-PO-JcS" id="pDJ-MN-vqQ"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Dossiers" id="m7T-PV-OdR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9Bd-pH-gx9">
+                            <connections>
+                                <segue destination="elb-Ec-Wff" kind="presentation" identifier="addCategory" id="a5x-kP-gV7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YFS-L5-3tx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="36" y="-745"/>
+        </scene>
+        <!--Add folder-->
+        <scene sceneID="Abv-cS-BYr">
+            <objects>
+                <tableViewController id="W3x-Sy-xLt" customClass="CategoryDetailViewController" customModule="ToDoBDMobile" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="2hX-Wh-c1p">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="jtD-O3-E6j">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bjK-Dq-9IA">
+                                        <rect key="frame" x="0.0" y="35" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bjK-Dq-9IA" id="Wha-iR-8We">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name of the folder" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xi6-KM-31S">
+                                                    <rect key="frame" x="16" y="3" width="343" height="30"/>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="xi6-KM-31S" firstAttribute="bottom" secondItem="Wha-iR-8We" secondAttribute="bottomMargin" id="44k-lB-WfA"/>
+                                                <constraint firstItem="xi6-KM-31S" firstAttribute="trailing" secondItem="Wha-iR-8We" secondAttribute="trailingMargin" id="YdY-qc-rtl"/>
+                                                <constraint firstItem="xi6-KM-31S" firstAttribute="leading" secondItem="Wha-iR-8We" secondAttribute="leadingMargin" id="chr-xe-s43"/>
+                                                <constraint firstItem="xi6-KM-31S" firstAttribute="top" secondItem="Wha-iR-8We" secondAttribute="topMargin" constant="-8" id="nmw-zp-lkV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="W3x-Sy-xLt" id="Kef-31-Or6"/>
+                            <outlet property="delegate" destination="W3x-Sy-xLt" id="9qQ-cV-zVD"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add folder" id="Te9-pQ-4C1">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ZJC-6q-bwZ">
+                            <connections>
+                                <action selector="cancel:" destination="W3x-Sy-xLt" id="hdt-N3-MQe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="a8o-Xf-Jxc">
+                            <connections>
+                                <action selector="done:" destination="W3x-Sy-xLt" id="tTw-aV-NYo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="bDone" destination="a8o-Xf-Jxc" id="D2O-iF-PI9"/>
+                        <outlet property="textField" destination="xi6-KM-31S" id="mRz-SZ-qEO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eE2-mF-8yK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1824.8" y="-745.27736131934034"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="5Vw-gd-I5x">
+            <objects>
+                <navigationController id="elb-Ec-Wff" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="z6o-3D-0Gs">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="W3x-Sy-xLt" kind="relationship" relationship="rootViewController" id="4zg-3e-x95"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jab-7I-utv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="874" y="-745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sGQ-tp-bGb">
+            <objects>
+                <navigationController id="rCc-uh-u6t" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yKu-aG-zrY">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="99z-PO-JcS" kind="relationship" relationship="rootViewController" id="1YJ-vy-mBw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9xm-aW-sL6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-903" y="-745"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Kj9-el-mCB"/>
         <segue reference="XgT-hi-g9e"/>
     </inferredMetricsTieBreakers>
 </document>
